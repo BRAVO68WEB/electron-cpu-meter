@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Cpu Monitor</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+  <div class="box">
+    <span class="label">CPU (%)</span>
+    <span id="cpu">-</span>
+  </div>
+  <div class="box">
+    <span class="label">Free Mem (%)</span>
+    <span id="mem">-</span>
+  </div>
+  <div class="box">
+    <span class="label">Total Mem (GB)</span>
+    <span id="total-mem">-</span>
+  </div>
+  <br>
+  <div class="box">
+    <span class="label">Monitor Uptime (Min)</span>
+    <span id="monitor-started">-</span>
+  </div>
+  <div class="box">
+    <span class="label">System Uptime (Min)</span>
+    <span id="total-uptime">-</span>
+  </div>
+  <!-- <div class="box">
+    <span class="label">Platform (OS)</span>
+    <span id="platform">-</span>
+  </div>
+  <div class="box">
+    <span class="label">Avg Load</span>
+    <span id="load-5">-</span>
+  </div> -->
+  <script>
+    const electron = require('electron');
+    const ipcRenderer = electron.ipcRenderer;
+
+    ipcRenderer.on('cpu', (event, data) => {
+      document.getElementById('cpu').innerHTML = data.toFixed(2);
+    });
+    ipcRenderer.on('mem', (event, data) => {
+      document.getElementById('mem').innerHTML = data.toFixed(2);
+    });
+    ipcRenderer.on('total-mem', (event, data) => {
+      document.getElementById('total-mem').innerHTML = data.toFixed(2);
+    });
+    ipcRenderer.on('monitor-started', (event, data) => {
+      document.getElementById('monitor-started').innerHTML = data.toFixed(2);
+    });
+    ipcRenderer.on('total-uptime', (event, data) => {
+      document.getElementById('total-uptime').innerHTML = data.toFixed(2);
+    });
+    ipcRenderer.on('platform', (event, data) => {
+      document.getElementById('platform').innerHTML = data.toFixed(2);
+    });
+    ipcRenderer.on('load-5', (event, data) => {
+      document.getElementById('load-5').innerHTML = data.toFixed(2);
+    });
+  </script>
+</body>
+
+</html>
